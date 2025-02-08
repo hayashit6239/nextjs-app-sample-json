@@ -493,7 +493,6 @@ server.get('/products/quick', async (req, res) => {
 server.get('/products/lazy/:id', async (req, res) => {
   await sleep(2000);
   const { id } = req.params;
-
   const product = jsonData["products"].find((p) => Number(p.id) === Number(id));
 
   if (product) {
