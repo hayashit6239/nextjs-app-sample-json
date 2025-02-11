@@ -502,6 +502,18 @@ server.get('/products/lazy/:id', async (req, res) => {
   }
 });
 
+server.get('/users/lazy/:id', async (req, res) => {
+  await sleep(2000);
+  const { id } = req.params;
+  const user = jsonData["users"].find((p) => Number(p.id) === Number(id));
+
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404).json({ message: 'User not found' });
+  }
+});
+
 server.use(middlewares);
 server.use(router);
 server.listen(port, (err) => {
