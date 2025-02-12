@@ -398,6 +398,7 @@ server.use(cors({
 }));
 
 server.post('/auth/signin', async (req, res) => {
+  console.log("[INFO] POST /auth/signin, Request body: ", req.body);
   sleep(1000)
   if (
     !(req.body['username'] === 'user' && req.body['password'] === 'password')
@@ -425,6 +426,7 @@ server.post('/auth/signout', (req, res) => {
 });
 
 server.post('/products', async (req, res) => {
+  console.log("[INFO] POST /products, Request cookie: ", req.cookies['token']);
   await sleep(2000);
 
   if (req.cookies['token'] !== 'dummy_token') {
@@ -481,17 +483,21 @@ server.get('/users/me', (req, res) => {
 });
 
 server.get('/products/lazy', async (req, res) => {
+  console.log("[INFO] GET /products/lazy Sleep 3 seconds ...");
   await sleep(3000);
-
+  console.log("[INFO] GET /products/lazy Start");
   res.status(200).json(jsonData["products"]);
 });
 
 server.get('/products/quick', async (req, res) => {
+  console.log("[INFO] GET /products/quick Start");
   res.status(200).json(jsonData["products"]);
 });
 
-server.get('/products/lazy/:id', async (req, res) => {
+server.get('[INFO] GET /products/lazy/:id', async (req, res) => {
+  console.log("[INFO] GET /products/lazy/:id Sleep 2 seconds ..., id: ", req.params.id);
   await sleep(2000);
+  console.log("[INFO] GET /products/lazy/:id Start");
   const { id } = req.params;
   const product = jsonData["products"].find((p) => Number(p.id) === Number(id));
 
@@ -503,7 +509,9 @@ server.get('/products/lazy/:id', async (req, res) => {
 });
 
 server.get('/users/lazy/:id', async (req, res) => {
+  console.log("[INFO] GET /users/lazy/:id Sleep 2 seconds ..., id: ", req.params.id);
   await sleep(2000);
+  console.log("[INFO] GET /users/lazy/:id Start");
   const { id } = req.params;
   const user = jsonData["users"].find((p) => Number(p.id) === Number(id));
 
